@@ -11,28 +11,28 @@ class Codigo:
 
     def __init__(self, args):
         self.parametros = args
-        self.byteArray = self.to_byte_array()
+        self.byteArray = self.to_byte_array(self.parametros)
 
-    def to_byte_array(self):
+    def to_byte_array(self, parametros):
         ops = self.__class__.operacoes
 
-        byteArray = [-1, -1, -1, -1]
+        byte_array = [-1, -1, -1, -1]
 
         # pegando qual operacao sera executada
-        byteArray[0] = ops[self.parametros[0]]
+        byte_array[0] = ops[parametros[0]]
 
         # pegando o primeiro valor, independe da operacao
-        byteArray[1] = self.solve_value(self.parametros[1])
+        byte_array[1] = self.solve_value(parametros[1])
 
         # se a operacao for add, mov ou imul existe o 3 parametro
-        if byteArray[0] > ops["inc"]:
-            byteArray[2] = self.solve_value(self.parametros[2])
+        if byte_array[0] > ops["inc"]:
+            byte_array[2] = self.solve_value(parametros[2])
 
             # se a operacao for imul existe o 4 parametro
-            if byteArray[0] > ops["mov"]:
-                byteArray[3] = self.solve_value(self.parametros[3])
+            if byte_array[0] > ops["mov"]:
+                byte_array[3] = self.solve_value(parametros[3])
 
-        return byteArray
+        return byte_array
 
     # converte o valor para posicao da memoria, registrador ou inteiro
     @staticmethod
