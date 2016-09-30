@@ -1,18 +1,18 @@
 import re
-import Codigo
+from Codigo import Codigo
 
 
 class Regex:
     def __init__(self, linhas):
         self.linhas = linhas
-        self.traducao = []
-        self.traduzir()
+        self.traducao = Regex.traduzir(linhas)
 
-    def traduzir(self):
-        pettern = r"(\w+)"
+    @staticmethod
+    def traduzir(linhas):
+        pettern = r"(\w+)\s*"
+        traducao = []
 
         operacao = re.compile(pettern)
-        #add 2, 3 / imul c, 4, 5
         patterns = {
             "add": r"^\s*(\w+)\s+(\w+)\s*,\s*(\w+)\s*$",
             "mov": r"^\s*(\w+)\s+(\w+)\s*,\s*(\w+)\s*$",
@@ -20,16 +20,18 @@ class Regex:
             "inc": r"^\s*(\w+)\s+(\w+)\s*$"
         }
 
-        for linha in self.linhas:
+        for linha in linhas:
             expressao = None
 
-            expressao = patterns[operacao.match(linha).group(0)]
+            expressao = patterns[operacao.match(linha).group(1)]
 
             if expressao == None:
                 raise Exception('Operador inexistente')
 
-            comandos = re.findall(expressao, linha)
+            comandos = re.findall(expressao, linha)[0]
 
             codigo = Codigo(comandos)
 
-            self.traducao.append(codigo)
+            traducao.append(codigo)
+
+        return traducao
