@@ -24,3 +24,7 @@ class BufferReader:
             self.ponteiro = value
         else:
             raise Exception("Seek value:"+value+" code length:"+len(self.codigo))
+
+    def dec_pointer(self):
+        if self.ponteiro >= 0:
+            self.ponteiro -= 1

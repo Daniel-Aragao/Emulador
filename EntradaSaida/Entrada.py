@@ -4,17 +4,24 @@ from BufferReader import BufferReader
 
 
 class Entrada:
-    filepath = r"C:\Users\danda_000\Documents\Estudos, Unifor\Python\workspace\Arquitetura\res\file_sample.txt"
+    filepath = r"C:\\Users\danda_000\\Documents\\Estudos, Unifor\\Python\\workspace\\Arquitetura\\res\\file_sample.txt"
 
     def __init__(self, barramento):
         self.barramento = barramento
         self.buffer = {}
         pass
 
-    def executar_codigo(self, path=filepath):
+    def preencher_memoria(self, path=filepath):
         vetor_strings = self.importar_codigo(path)
         regex = Regex(vetor_strings)
-        buffer = BufferReader(regex.traducao)
+        self.buffer = BufferReader(regex.traducao)
+
+        enviando = True
+        while enviando:
+            enviando = self.barramento.enviar_codigo(0, self.buffer.get_codigo(1)) != 0
+            if not enviando:
+                self.buffer.dec_pointer()
+
         """
         criar um while que vai executar até receber um false do barramento,
         pois o objetivo é enviar pro barramento, por consequencia para memória,

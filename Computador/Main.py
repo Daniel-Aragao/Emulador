@@ -12,6 +12,9 @@ class Computador:
         self.entrada = Entrada(self.barramento)
         self.cpu = CPU(self.barramento)
 
-        self.barramento.memoria = self.ram
-        self.barramento.entrada = self.entrada
-        self.barramento.cpu = self.cpu
+        comp = [self.ram, self.entrada, self.cpu]
+        self.barramento.components = comp
+
+        self.entrada.preencher_memoria()
+
+        self.cpu.executar_codigo()
