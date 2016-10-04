@@ -11,3 +11,11 @@ class ArrayTools:
 
         return novalista
 
+    @staticmethod
+    def append_array(src, dest, offset, size):
+        if offset + size > len(dest):
+            raise Exception("Array out of bounds")
+        i = 0
+        while i < size:
+            dest[offset+i] = src[i]
+            i += 1

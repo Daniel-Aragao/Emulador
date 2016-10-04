@@ -23,6 +23,8 @@ class Codigo:
 
         # pegando o primeiro valor, independe da operacao
         byte_array[1] = self.solve_value(parametros[1])
+        if byte_array[1] > 0:
+            raise Exception("primeiro valor nao pode ser uma constante")
 
         # se a operacao for add, mov ou imul existe o 3 parametro
         if byte_array[0] > ops["inc"]:
