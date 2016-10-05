@@ -22,6 +22,9 @@ class Entrada:
     def enviar_codigo(self, pos):
         return self.buffer.get_codigo()
 
+    def get_not_read(self):
+        return self.buffer.get_not_read()
+
     @staticmethod
     def importar_codigo(path=filepath):
         f = open(path, 'r')
