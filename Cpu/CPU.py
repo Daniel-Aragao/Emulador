@@ -13,7 +13,7 @@ class CPU:
 
         while running:
             cod, ci = self.barramento.receber_codigo(0, regs["CI"])
-            if ci == -1:
+            if cod[0] == -1:
                 regs["CI"] = 0
                 running = False
                 break
@@ -21,21 +21,67 @@ class CPU:
             regs["CI"] = ci
 
             if Codigo.operacoes["inc"] == cod[0]:
-                regs[unichr(-(cod[1]))] += 1
+                incrementado = -cod[1]
+
+                if self.is_registrador(incrementado):
+                    regs[chr(incrementado)] += 1
+                else:
+                    valor_antigo = self.barramento.receber_valor(incrementado)
+                    self.barramento.enviar_valor(incrementado, valor_antigo + 1)
 
             elif Codigo.operacoes["add"] == cod[0]:
-                valor_inicial = regs[unichr(-(cod[1]))]
+                added = -cod[1]
+                valor_antigo = 0
 
-                self.get_valor(cod[1])
+                if self.is_registrador(added):
+                    valor_antigo = regs[chr(added)]
+                else:
+                    valor_antigo = self.barramento.receber_valor(added)
 
-                pass
+                valor_added = self.get_valor(cod[2])
+
+                valor_novo = valor_antigo + valor_added
+
+                if self.is_registrador(added):
+                    regs[chr(added)] = valor_novo
+                else:
+                    self.barramento.enviar_valor(added, valor_novo)
+
             elif Codigo.operacoes["mov"] == cod[0]:
-                pass
-            elif Codigo.operacoes["imul"] == cod[0]:
-                pass
+                valor_novo = self.get_valor(cod[2])
 
-    def get_valor(self, cod):
-        if cod < 0:
-            if -cod >= consts.MENOR_REGISTRADOR:
-                return self.registradores[unichr(-(cod))]
-            #elif -cod <= consts.TAMANHO_MEMORIA_DADOS
+                target = -cod[1]
+
+                if self.is_registrador(target):
+                    regs[chr(target)] = valor_novo
+                else:
+                    self.barramento.enviar_valor(target, valor_novo)
+
+            elif Codigo.operacoes["imul"] == cod[0]:
+                target = -cod[1]
+
+                mult1 = self.get_valor(cod[2])
+                mult2 = self.get_valor(cod[3])
+                result = mult1 * mult2
+
+                if self.is_registrador(target):
+                    regs[chr(target)] = result
+                else:
+                    self.barramento.enviar_valor(target, result)
+
+    def is_registrador(self, val):
+        if val >= consts.MENOR_REGISTRADOR:
+            return True
+
+        return False
+
+    def get_valor(self, valor):
+        if valor >= 0:
+            return valor
+
+        valor = -valor
+
+        if self.is_registrador(valor):
+            return self.registradores[chr(valor)]
+
+        return self.barramento.receber_valor(valor)

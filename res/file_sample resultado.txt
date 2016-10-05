@@ -1,0 +1,18 @@
+mov A, 2
+mov B, 3
+add A, B
+mov 0x0001, A
+inc 0x0001
+imul C, 0x0001, 4
+mov 0x0002, C
+
+Soma dos valores dos registradores A e B
+que é igual a 5, logo após, move o valor 5
+para a posição de memória 0x0001, incrementa
+esse valor à 1 e depois realiza a multiplicação
+armazenando o valor no reg C que em seguinda vai
+ser armazenado no endereço de memória 0x0002
+
+
+
+

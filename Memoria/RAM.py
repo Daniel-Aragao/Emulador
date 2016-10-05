@@ -32,8 +32,23 @@ class Ram:
 
         instrucao = at.sub_array(self.dados, pos, const.CODIGO_SIZE)
 
-        dado = self.barramento.receber_codigo(1, 0)
-        at.append_array(dado, self.dados, pos, const.CODIGO_SIZE)
+        dado = self.barramento.receber_codigo(1, -1)
+        if dado != -1:
+            at.append_array(dado, self.dados, pos, const.CODIGO_SIZE)
+        else:
+            at.append_array([-1 for i in range(const.CODIGO_SIZE)], self.dados, pos, const.CODIGO_SIZE)
 
         self.pointer_inc()
         return instrucao, self.pointer
+
+    def enviar_valor(self, pos):
+        if pos > const.TAMANHO_MEMORIA_DADOS:
+            raise MemoryError("accessViolationException")
+
+        return self.dados[const.OFFSET + pos]
+
+    def receber_valor(self, pos, valor):
+        if pos > const.TAMANHO_MEMORIA_DADOS:
+            raise MemoryError("accessViolationException")
+
+        self.dados[const.OFFSET + pos] = valor

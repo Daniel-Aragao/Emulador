@@ -19,7 +19,7 @@ class Entrada:
         while enviando:
             enviando = self.barramento.enviar_codigo(0, self.buffer.get_codigo()) != 0
 
-    def receber_codigo(self, pos):
+    def enviar_codigo(self, pos):
         return self.buffer.get_codigo()
 
     @staticmethod

@@ -20,6 +20,9 @@ class Computador:
 
         self.cpu.executar_codigo()
 
+        print self.cpu.registradores
+        print self.ram.dados
+
 
 if __name__ == '__main__':
     Computador()
