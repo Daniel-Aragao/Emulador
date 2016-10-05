@@ -42,3 +42,9 @@ class Barramento:
 
         self.listas[1].see(self.components[2].selected)
         self.listas[1].activate(self.components[2].selected)
+
+        if self.components[2].running:
+            self.listas[3].set("Executando")
+        else:
+            self.listas[3].set("Finalizado")
+

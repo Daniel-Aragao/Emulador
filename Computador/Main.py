@@ -20,7 +20,7 @@ class Computador:
         interface = Interface()
         interface.start()
 
-        interface_listas = [interface.list1, interface.list2, interface.list3]
+        interface_listas = [interface.list1, interface.list2, interface.list3, interface.textoCentro]
         self.barramento.listas = interface_listas
 
         interface.list2.focus_set()

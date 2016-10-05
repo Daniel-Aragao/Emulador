@@ -7,7 +7,7 @@ class Interface(threading.Thread):
     def __init__(self):
         super(Interface, self).__init__()
         self.top = Tk()
-        self.top.title("Arquitetura e organizacao de computadores")
+        self.top.title("Arquitetura de John Von Neumann")
         #self.top.geometry("480x280")
         self.top.configure(background="blue")
 
@@ -51,10 +51,10 @@ class Interface(threading.Thread):
 
         # center group
         panelmiddle = PanedWindow(body)
-        textoCentro = StringVar()
-        textoCentro.set("Arquitetura de John Von Neumann")
+        self.textoCentro = StringVar()
+        self.textoCentro.set("Arquitetura de John Von Neumann")
 
-        Label(panelmiddle, textvariable=textoCentro).pack(fill="both", expand=True)
+        Label(panelmiddle, textvariable=self.textoCentro).pack(fill="both", expand=True)
         panelmiddle.pack(fill="both", expand=True)
 
 

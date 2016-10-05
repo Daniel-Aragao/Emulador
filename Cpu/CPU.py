@@ -71,6 +71,8 @@ class CPU:
                         regs[chr(target)] = result
                     else:
                         self.barramento.enviar_valor(target, result)
+        else:
+            self.barramento.update_interface()
 
     def is_registrador(self, val):
         if val >= consts.MENOR_REGISTRADOR:
