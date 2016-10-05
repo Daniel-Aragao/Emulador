@@ -28,9 +28,11 @@ class Barramento:
     def update_interface(self):
         dados = self.components[0].dados
         if dados is not None:
-            self.listas[0].delete(0, 'end')
+            """self.listas[0].delete(0, 'end')
             for i in range(len(dados)):
-                self.listas[0].insert('end', str(i)+": " + str(dados[i]))
+                self.listas[0].insert('end', str(i)+": " + str(dados[i]))"""
+            self.listas[0].set(dados)
+
 
         dados = self.components[1].get_not_read()
         if dados is not None:
