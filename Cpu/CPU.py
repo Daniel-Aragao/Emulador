@@ -38,4 +38,4 @@ class CPU:
         if cod < 0:
             if -cod >= consts.MENOR_REGISTRADOR:
                 return self.registradores[unichr(-(cod))]
-            elif -cod <= consts.TAMANHO_MEMORIA_DADOS
+            #elif -cod <= consts.TAMANHO_MEMORIA_DADOS

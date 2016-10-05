@@ -6,9 +6,6 @@ class Barramento:
     }"""
 
     def __init__(self):
-        self.memoria = {}
-        self.cpu = {}
-        self.entrada = {}
         self.components = {}
         pass
 

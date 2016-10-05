@@ -6,16 +6,16 @@ class Ram:
 
     def __init__(self, barramento):
         self.barramento = barramento
-        self.dados = []
+        self.dados = [0 for i in range(32)]
         self.pointer = 0
 
     def receber_dados(self, dado):
         if len(dado) != const.CODIGO_SIZE:
-            raise Exception("entrada inválida na memória")
+            raise Exception("entrada invalida na memoria")
 
         at.append_array(dado, self.dados, self.pointer, const.CODIGO_SIZE)
-
-        return self.pointer_inc()
+        self.pointer_inc()
+        return self.pointer
 
     def pointer_inc(self):
         self.pointer = (self.pointer + const.CODIGO_SIZE) % const.CODIGO_AREA
@@ -31,11 +31,7 @@ class Ram:
             raise MemoryError("Memoria corrompida")
 
         instrucao = at.sub_array(self.dados, pos, const.CODIGO_SIZE)
-        """
-        nesse ponto pedir ao barramento informacao
-        para inserir os dados novos onde estava o
-        codigo enviado para cpu
-        """
+
         dado = self.barramento.receber_codigo(1, 0)
         at.append_array(dado, self.dados, pos, const.CODIGO_SIZE)
 

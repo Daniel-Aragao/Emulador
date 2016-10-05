@@ -17,7 +17,7 @@ class Entrada:
 
         enviando = True
         while enviando:
-            enviando = self.barramento.enviar_codigo(0, self.buffer.get_codigo(1)) != 0
+            enviando = self.barramento.enviar_codigo(0, self.buffer.get_codigo()) != 0
 
     def receber_codigo(self, pos):
         return self.buffer.get_codigo()
@@ -25,4 +25,4 @@ class Entrada:
     @staticmethod
     def importar_codigo(path=filepath):
         f = open(path, 'r')
-        return f.readlines()
+        return f.read().splitlines()

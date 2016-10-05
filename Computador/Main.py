@@ -1,14 +1,14 @@
-from Barramento import Barramento
-from Memoria import RAM
-from Cpu import CPU
-from EntradaSaida import Entrada
+from Barramento.Barramento import Barramento
+from Memoria.RAM import Ram
+from Cpu.CPU import CPU
+from EntradaSaida.Entrada import Entrada
 
 
 class Computador:
 
     def __init__(self):
         self.barramento = Barramento()
-        self.ram = RAM(self.barramento)
+        self.ram = Ram(self.barramento)
         self.entrada = Entrada(self.barramento)
         self.cpu = CPU(self.barramento)
 

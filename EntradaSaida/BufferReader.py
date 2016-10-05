@@ -1,4 +1,4 @@
-from Utils import ArrayTools as at
+from Utils.ArrayTools import ArrayTools as at
 
 
 class BufferReader:
@@ -10,14 +10,15 @@ class BufferReader:
     def its_missing(self):
         return len(self.codigo) - self.ponteiro
 
-    def get_codigo(self, qtde_lines=1):
-        if (self.ponteiro + qtde_lines) > len(self.codigo):
+    def get_codigo(self):
+        if self.ponteiro + 1 > len(self.codigo):
             return -1
 
-        self.ponteiro += qtde_lines
+        retorno = self.codigo[self.ponteiro]
 
-        retorno = at.sub_array(self.codigo, self.ponteiro, qtde_lines)
-        return retorno
+        self.ponteiro += 1
+
+        return retorno.byteArray
 
     def seek(self, value):
         if value < len(self.codigo):
