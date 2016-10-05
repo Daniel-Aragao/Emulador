@@ -52,7 +52,7 @@ class Interface(threading.Thread):
         # center group
         panelmiddle = PanedWindow(body)
         textoCentro = StringVar()
-        textoCentro.set("Arquitetura de John Von Neumann por: \n Daniel Aragao e Francisco Guilherme")
+        textoCentro.set("Arquitetura de John Von Neumann")
 
         Label(panelmiddle, textvariable=textoCentro).pack(fill="both", expand=True)
         panelmiddle.pack(fill="both", expand=True)
