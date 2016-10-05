@@ -30,5 +30,5 @@ class BufferReader:
         if self.ponteiro >= 0:
             self.ponteiro -= 1
 
-    def get_not_read(self):
-        at.sub_array(self.codigo, self.ponteiro, self.its_missing())
+    def get_code(self):
+        return self.codigo

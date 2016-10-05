@@ -52,3 +52,17 @@ class Ram:
             raise MemoryError("accessViolationException")
 
         self.dados[const.OFFSET + pos] = valor
+
+    def __str__(self):
+        string = ""
+        p = 0
+        while p < const.CODIGO_AREA:
+            if p == self.pointer:
+                string += "*"
+            string += str(at.sub_array(self.dados, start=p, size=const.CODIGO_SIZE))
+
+            p += const.CODIGO_SIZE
+
+        string += str(at.sub_array(self.dados, start=p, size=const.CODIGO_AREA))
+
+        return string

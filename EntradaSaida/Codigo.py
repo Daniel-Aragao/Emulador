@@ -59,7 +59,7 @@ class Codigo:
             pass
 
         # converte para posicao de memoria
-        if retorno == None:
+        if retorno is None:
             retorno = -int(valor, 16)
             if -retorno > Constantes.TAMANHO_MEMORIA_DADOS:
                 raise MemoryError("Posicao de memoria inexistente")

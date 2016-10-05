@@ -6,68 +6,71 @@ class CPU:
     def __init__(self, barramento):
         self.barramento = barramento
         self.registradores = {"A": 0, "B": 0, "C": 0, "D": 0, "CI": 0}
+        self.running = True
+        self.selected = -1
 
     def executar_codigo(self):
         regs = self.registradores
-        running = True
 
-        while running:
+        if self.running:
+            self.selected += 1
+            self.barramento.update_interface()
             cod, ci = self.barramento.receber_codigo(0, regs["CI"])
             if cod[0] == -1:
                 regs["CI"] = 0
-                running = False
-                break
+                self.running = False
 
-            regs["CI"] = ci
+            else:
+                regs["CI"] = ci
 
-            if Codigo.operacoes["inc"] == cod[0]:
-                incrementado = -cod[1]
+                if Codigo.operacoes["inc"] == cod[0]:
+                    incrementado = -cod[1]
 
-                if self.is_registrador(incrementado):
-                    regs[chr(incrementado)] += 1
-                else:
-                    valor_antigo = self.barramento.receber_valor(incrementado)
-                    self.barramento.enviar_valor(incrementado, valor_antigo + 1)
+                    if self.is_registrador(incrementado):
+                        regs[chr(incrementado)] += 1
+                    else:
+                        valor_antigo = self.barramento.receber_valor(incrementado)
+                        self.barramento.enviar_valor(incrementado, valor_antigo + 1)
 
-            elif Codigo.operacoes["add"] == cod[0]:
-                added = -cod[1]
-                valor_antigo = 0
+                elif Codigo.operacoes["add"] == cod[0]:
+                    added = -cod[1]
+                    valor_antigo = 0
 
-                if self.is_registrador(added):
-                    valor_antigo = regs[chr(added)]
-                else:
-                    valor_antigo = self.barramento.receber_valor(added)
+                    if self.is_registrador(added):
+                        valor_antigo = regs[chr(added)]
+                    else:
+                        valor_antigo = self.barramento.receber_valor(added)
 
-                valor_added = self.get_valor(cod[2])
+                    valor_added = self.get_valor(cod[2])
 
-                valor_novo = valor_antigo + valor_added
+                    valor_novo = valor_antigo + valor_added
 
-                if self.is_registrador(added):
-                    regs[chr(added)] = valor_novo
-                else:
-                    self.barramento.enviar_valor(added, valor_novo)
+                    if self.is_registrador(added):
+                        regs[chr(added)] = valor_novo
+                    else:
+                        self.barramento.enviar_valor(added, valor_novo)
 
-            elif Codigo.operacoes["mov"] == cod[0]:
-                valor_novo = self.get_valor(cod[2])
+                elif Codigo.operacoes["mov"] == cod[0]:
+                    valor_novo = self.get_valor(cod[2])
 
-                target = -cod[1]
+                    target = -cod[1]
 
-                if self.is_registrador(target):
-                    regs[chr(target)] = valor_novo
-                else:
-                    self.barramento.enviar_valor(target, valor_novo)
+                    if self.is_registrador(target):
+                        regs[chr(target)] = valor_novo
+                    else:
+                        self.barramento.enviar_valor(target, valor_novo)
 
-            elif Codigo.operacoes["imul"] == cod[0]:
-                target = -cod[1]
+                elif Codigo.operacoes["imul"] == cod[0]:
+                    target = -cod[1]
 
-                mult1 = self.get_valor(cod[2])
-                mult2 = self.get_valor(cod[3])
-                result = mult1 * mult2
+                    mult1 = self.get_valor(cod[2])
+                    mult2 = self.get_valor(cod[3])
+                    result = mult1 * mult2
 
-                if self.is_registrador(target):
-                    regs[chr(target)] = result
-                else:
-                    self.barramento.enviar_valor(target, result)
+                    if self.is_registrador(target):
+                        regs[chr(target)] = result
+                    else:
+                        self.barramento.enviar_valor(target, result)
 
     def is_registrador(self, val):
         if val >= consts.MENOR_REGISTRADOR:

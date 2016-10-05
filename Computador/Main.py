@@ -23,12 +23,9 @@ class Computador:
         interface_listas = [interface.list1, interface.list2, interface.list3]
         self.barramento.listas = interface_listas
 
+        interface.list2.focus_set()
         self.entrada.preencher_memoria()
-
-        self.cpu.executar_codigo()
-
-        print self.cpu.registradores
-        print self.ram.dados
+        interface.btn.configure(command=self.cpu.executar_codigo)
 
 
 if __name__ == '__main__':

@@ -7,7 +7,8 @@ class Interface(threading.Thread):
     def __init__(self):
         super(Interface, self).__init__()
         self.top = Tk()
-        #self.top.geometry("480x240")
+        self.top.title("Arquitetura e organizacao de computadores")
+        #self.top.geometry("480x280")
         self.top.configure(background="blue")
 
         # body group
@@ -24,7 +25,7 @@ class Interface(threading.Thread):
 
         Label(toppanel, textvariable=labmem).pack()
         self.message.pack()
-        toppanel.pack(side="top")
+        toppanel.pack(side="top", fill='x')
 
         # left group
         panel1 = PanedWindow(body)
@@ -62,9 +63,9 @@ class Interface(threading.Thread):
         # footer group
         footer = PanedWindow(self.top, relief=RAISED)
 
-        btn = Button(footer, text="Avancar")
+        self.btn = Button(footer, text="Avancar")
 
-        btn.pack()
+        self.btn.pack()
         footer.pack(side="bottom", fill="x", expand=True)
 
     def run(self):

@@ -22,8 +22,8 @@ class Entrada:
     def enviar_codigo(self, pos):
         return self.buffer.get_codigo()
 
-    def get_not_read(self):
-        return self.buffer.get_not_read()
+    def get_code(self):
+        return self.buffer.get_code()
 
     @staticmethod
     def importar_codigo(path=filepath):
