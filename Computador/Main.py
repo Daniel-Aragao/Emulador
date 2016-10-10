@@ -24,7 +24,9 @@ class Computador:
         self.barramento.listas = interface_listas
 
         interface.list2.focus_set()
+
         self.entrada.preencher_memoria()
+
         interface.btn.configure(command=self.cpu.executar_codigo)
 
 
