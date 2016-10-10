@@ -8,6 +8,8 @@ from Utils.interface import Interface
 class Computador:
 
     def __init__(self):
+        #implementar 3 barramentos, memoria dinamica, clock, largura de memoria
+
         self.barramento = Barramento()
         self.ram = Ram(self.barramento)
         self.entrada = Entrada(self.barramento)
