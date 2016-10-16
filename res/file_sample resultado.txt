@@ -13,6 +13,9 @@ esse valor à 1 e depois realiza a multiplicação
 armazenando o valor no reg C que em seguinda vai
 ser armazenado no endereço de memória 0x0002
 
-
-
-
+mem: 3,6,24,25
+A: 25
+C: 19
+B: 3
+CI: 0
+D: 6

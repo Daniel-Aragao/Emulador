@@ -1,21 +1,23 @@
 from EntradaSaida.Codigo import Codigo
-from Memoria import Constantes as consts
+from Memoria import Constantes as Consts
+from Barramento.Barramento import Barramento
+from Computador import Componentes as Comps
 
 
 class CPU:
-    def __init__(self, barramento):
-        self.barramento = barramento
+    def __init__(self):
         self.registradores = {"A": 0, "B": 0, "C": 0, "D": 0, "CI": 0}
         self.running = True
-        self.selected = -1
+        self.interface_selected = 0
 
     def executar_codigo(self):
         regs = self.registradores
 
         if self.running:
-            self.selected += 1
-            self.barramento.update_interface()
-            cod, ci = self.barramento.receber_codigo(0, regs["CI"])
+            self.interface_selected += 1
+            #             Barramento.update_interface()
+            cod, ci = Barramento.receber_codigo(Comps.RAM, regs["CI"])
+
             if cod[0] == -1:
                 regs["CI"] = 0
                 self.running = False
@@ -29,8 +31,8 @@ class CPU:
                     if self.is_registrador(incrementado):
                         regs[chr(incrementado)] += 1
                     else:
-                        valor_antigo = self.barramento.receber_valor(incrementado)
-                        self.barramento.enviar_valor(incrementado, valor_antigo + 1)
+                        valor_antigo = Barramento.receber_valor(incrementado)
+                        Barramento.enviar_valor(incrementado, valor_antigo + 1)
 
                 elif Codigo.operacoes["add"] == cod[0]:
                     added = -cod[1]
@@ -39,7 +41,7 @@ class CPU:
                     if self.is_registrador(added):
                         valor_antigo = regs[chr(added)]
                     else:
-                        valor_antigo = self.barramento.receber_valor(added)
+                        valor_antigo = Barramento.receber_valor(added)
 
                     valor_added = self.get_valor(cod[2])
 
@@ -48,7 +50,7 @@ class CPU:
                     if self.is_registrador(added):
                         regs[chr(added)] = valor_novo
                     else:
-                        self.barramento.enviar_valor(added, valor_novo)
+                        Barramento.enviar_valor(added, valor_novo)
 
                 elif Codigo.operacoes["mov"] == cod[0]:
                     valor_novo = self.get_valor(cod[2])
@@ -58,7 +60,7 @@ class CPU:
                     if self.is_registrador(target):
                         regs[chr(target)] = valor_novo
                     else:
-                        self.barramento.enviar_valor(target, valor_novo)
+                        Barramento.enviar_valor(target, valor_novo)
 
                 elif Codigo.operacoes["imul"] == cod[0]:
                     target = -cod[1]
@@ -70,12 +72,11 @@ class CPU:
                     if self.is_registrador(target):
                         regs[chr(target)] = result
                     else:
-                        self.barramento.enviar_valor(target, result)
-        else:
-            self.barramento.update_interface()
+                        Barramento.enviar_valor(target, result)
 
-    def is_registrador(self, val):
-        if val >= consts.MENOR_REGISTRADOR:
+    @staticmethod
+    def is_registrador(val):
+        if val >= Consts.MENOR_REGISTRADOR:
             return True
 
         return False
@@ -89,4 +90,4 @@ class CPU:
         if self.is_registrador(valor):
             return self.registradores[chr(valor)]
 
-        return self.barramento.receber_valor(valor)
+        return Barramento.receber_valor(valor)
