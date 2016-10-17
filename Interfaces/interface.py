@@ -8,7 +8,7 @@ class Interface(threading.Thread):
         super(Interface, self).__init__()
         self.top = Tk()
         self.top.title("Arquitetura de John Von Neumann")
-        # self.top.geometry("480x280")
+        self.top.geometry("500x260")
         self.top.configure(background="blue")
         self.top.resizable(width=False, height=False)
 
@@ -29,6 +29,8 @@ class Interface(threading.Thread):
         self.right_group(body)
 
         self.center_group(body)
+
+        body.pack(fill="x")
 
         self.footer_group()
 
@@ -51,7 +53,6 @@ class Interface(threading.Thread):
         Label(panelmiddle, textvariable=self.textoCentro).pack(fill="both", expand=True)
 
         panelmiddle.pack(fill="both", expand=True)
-        body.pack()
 
     def right_group(self, body):
         panel2 = PanedWindow(body)
@@ -93,7 +94,18 @@ class Interface(threading.Thread):
         return body
 
     def run(self):
+        center(self.top)
         self.top.mainloop()
+
+
+def center(toplevel):
+    toplevel.update_idletasks()
+    w = toplevel.winfo_screenwidth()
+    h = toplevel.winfo_screenheight()
+    size = tuple(int(_) for _ in toplevel.geometry().split('+')[0].split('x'))
+    x = w / 2 - size[0] / 2
+    y = h / 2 - size[1] / 2
+    toplevel.geometry("%dx%d+%d+%d" % (size + (x, y)))
 
 if __name__ == '__main__':
     Interface()
