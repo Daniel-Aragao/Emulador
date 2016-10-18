@@ -11,12 +11,12 @@ from Interfaces.Configurations import MemoriaConfig
 
 class Computador:
     # 31/10 entrega da alteracao do barramento
-    # implementar 3 barramentos, memoria dinamica, clock, largura de memoria
+    # implementar 3 barramentos, memoria maior, clock e largura do barramento
     # largura de banda eh clock * largura do barramento
     # exemplo: (clock = 100hz) * (largura = 8bits)  = 800 bits/s
     #largura vai de 8 a 128, potencia de base 2
     #ram vai de 32 a 32*2^30, potencia de base 2
-    # clock vai de 100hz a 1ghz, multiplo de 100
+    #clock vai de 100hz a 1ghz, multiplo de 100
     # corrigir constantes que deveriam ser funcoes
 
     def __init__(self):

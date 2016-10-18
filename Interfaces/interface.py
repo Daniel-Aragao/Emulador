@@ -8,9 +8,9 @@ class Interface(threading.Thread):
         super(Interface, self).__init__()
         self.top = Tk()
         self.top.title("Arquitetura de John Von Neumann")
-        self.top.geometry("500x260")
-        self.top.configure(background="blue")
-        self.top.resizable(width=False, height=False)
+        self.top.geometry("800x300")
+        # self.top.configure(background="blue")
+        # self.top.resizable(width=False, height=False)
 
         self.btnNext = None
         self.btnFinish = None
@@ -42,7 +42,7 @@ class Interface(threading.Thread):
 
         self.btnFinish.pack(side="left")
         self.btnNext.pack(side="left")
-        footer.pack(side="bottom", fill="x", expand=True)
+        footer.pack(side="bottom", fill="x")
 
     def center_group(self, body):
         panelmiddle = PanedWindow(body)
@@ -82,7 +82,7 @@ class Interface(threading.Thread):
 
         labmem = StringVar()
         labmem.set("Memoria")
-        self.message = Label(toppanel, textvariable=self.list1, relief=RAISED)
+        self.message = Label(toppanel, textvariable=self.list1, relief=RAISED, wraplength="800")
 
         Label(toppanel, textvariable=labmem).pack()
         self.message.pack()
@@ -90,7 +90,6 @@ class Interface(threading.Thread):
 
     def body_group(self):
         body = PanedWindow(self.top, relief='solid')
-        body.configure(background="red")
         return body
 
     def run(self):

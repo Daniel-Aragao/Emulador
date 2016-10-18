@@ -81,7 +81,8 @@ class BarramentoConfig:
         clock = int(self.clock.get())
         if Consts.CLOCK_MINIMO <= clock:
             if Consts.CLOCK_MAXIMO >= clock:
-                return True, clock
+                if clock % 100 == 0:
+                    return True, clock
         return False, clock
 
 
