@@ -56,7 +56,7 @@ class Ram:
         p = 0
         while p < Const.memoria_particao_codigo():
             if p == self.pointer:
-                string += "*"
+                string += "==>"
             string += str(at.sub_array(self.dados, start=p, size=Const.CODIGO_SIZE))
 
             p += Const.CODIGO_SIZE
