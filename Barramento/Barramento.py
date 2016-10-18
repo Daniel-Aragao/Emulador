@@ -1,4 +1,5 @@
 from Computador import Componentes as Comps
+from Computador import Constantes as Consts
 
 
 class Barramento:
@@ -9,22 +10,18 @@ class Barramento:
     }"""
 
     def __init__(self):
-        pass
+        self.largura = Consts.LARGURA_BARRAMENTO
 
-    @staticmethod
-    def enviar_codigo(alvo, dados):
+    def enviar_codigo(self, alvo, dados):
         return Comps.Componentes[alvo].receber_dados(dados)
 
-    @staticmethod
-    def receber_codigo(alvo, pos):
+    def receber_codigo(self, alvo, pos):
         return Comps.Componentes[alvo].enviar_codigo(pos)
 
-    @staticmethod
-    def receber_valor(pos):
+    def receber_valor(self, pos):
         return Comps.Componentes[Comps.RAM].enviar_valor(pos)
 
-    @staticmethod
-    def enviar_valor(pos, valor):
+    def enviar_valor(self, pos, valor):
         Comps.Componentes[Comps.RAM].receber_valor(pos, valor)
 
 

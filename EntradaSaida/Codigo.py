@@ -1,4 +1,4 @@
-from Memoria import Constantes
+from Computador import Constantes
 
 
 class Codigo:
@@ -61,6 +61,6 @@ class Codigo:
         # converte para posicao de memoria
         if retorno is None:
             retorno = -int(valor, 16)
-            if -retorno > Constantes.TAMANHO_MEMORIA_DADOS:
+            if -retorno > Constantes.memoria_particao_dados():
                 raise MemoryError("Posicao de memoria inexistente")
         return retorno

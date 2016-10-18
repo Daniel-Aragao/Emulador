@@ -1,35 +1,44 @@
 from Computador import Componentes as Comps
+from Computador import Constantes as Consts
 from Cpu.CPU import CPU
 from EntradaSaida.Entrada import Entrada
 from Interfaces.interface import Interface
 from Memoria.RAM import Ram
+from Barramento.Barramento import Barramento
 from Interfaces.Configurations import BarramentoConfig
 from Interfaces.Configurations import MemoriaConfig
 
 
 class Computador:
+    # 31/10 entrega da alteracao do barramento
     # implementar 3 barramentos, memoria dinamica, clock, largura de memoria
+    # largura de banda eh clock * largura do barramento
+    # exemplo: (clock = 100hz) * (largura = 8bits)  = 800 bits/s
+    #largura vai de 8 a 128, potencia de base 2
+    #ram vai de 32 a 32*2^30, potencia de base 2
+    # clock vai de 100hz a 1ghz, multiplo de 100
+    # corrigir constantes que deveriam ser funcoes
 
     def __init__(self):
 
-        self.iniciar_constantes()
+        self.iniciar_interfaces_configuracao()
 
         self.criar_componentes()
 
-        # Interface principal
         self.criar_interface_principal()
 
         # Iniciando programa
         self.executar_assembly()
 
     @staticmethod
-    def iniciar_constantes():
+    def iniciar_interfaces_configuracao():
         BarramentoConfig()
         MemoriaConfig()
 
-
     def executar_assembly(self):
         Comps.Entrada.preencher_memoria(Comps.Entrada.read_file())
+        # famosa gambiarra
+        Comps.Ram.pointer = 0
         self.update_interface()
 
     def criar_interface_principal(self):
@@ -42,13 +51,14 @@ class Computador:
         interface.btnNext.configure(command=self.avancar_codigo)
         interface.btnFinish.configure(command=self.concluir_codigo)
 
-
-
     @staticmethod
     def criar_componentes():
-        Comps.Ram = Ram()
-        Comps.Entrada = Entrada()
-        Comps.Cpu = CPU()
+        barramento = Barramento()
+
+        Comps.Ram = Ram(barramento)
+        Comps.Entrada = Entrada(barramento)
+        Comps.Cpu = CPU(barramento)
+
         Comps.Componentes[Comps.RAM] = Comps.Ram
         Comps.Componentes[Comps.ENTRADA] = Comps.Entrada
         Comps.Componentes[Comps.CPU] = Comps.Cpu
