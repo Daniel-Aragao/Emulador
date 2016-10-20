@@ -17,7 +17,7 @@ class Computador:
     #largura vai de 8 a 128, potencia de base 2
     #ram vai de 32 a 32*2^30, potencia de base 2
     #clock vai de 100hz a 1ghz, multiplo de 100
-    # corrigir constantes que deveriam ser funcoes
+    #corrigir constantes que deveriam ser funcoes
 
     def __init__(self):
 
