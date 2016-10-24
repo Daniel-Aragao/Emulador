@@ -11,6 +11,7 @@ class Barramento:
 
     def __init__(self):
         self.largura = Consts.LARGURA_BARRAMENTO
+        self.barramento = None
 
     def enviar_codigo(self, alvo, dados):
         return Comps.Componentes[alvo].receber_dados(dados)

@@ -20,11 +20,13 @@ class Computador:
     #corrigir constantes que deveriam ser funcoes
 
     def __init__(self):
-
+        # interface
         self.iniciar_interfaces_configuracao()
 
+        # Instanciando componentes do computador
         self.criar_componentes()
 
+        # interface
         self.criar_interface_principal()
 
         # Iniciando programa
