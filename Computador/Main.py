@@ -10,7 +10,7 @@ from Interfaces.Configurations import MemoriaConfig
 
 
 class Computador:
-    # 31/10 entrega da alteracao do barramento
+    # 07/11 entrega da alteracao do barramento
     # implementar 3 barramentos, memoria maior, clock e largura do barramento
     # largura de banda eh clock * largura do barramento
     # exemplo: (clock = 100hz) * (largura = 8bits)  = 800 bits/s

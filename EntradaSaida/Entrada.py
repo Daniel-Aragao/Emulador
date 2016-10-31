@@ -1,12 +1,17 @@
 from Regex import Regex
 from BufferReader import BufferReader
 from Computador import Componentes as Comps
+from Computador import IComponent
+from Computador import Constantes as Consts
+import threading
+import time
 
 
-class Entrada:
+class Entrada(threading.Thread, IComponent):
     filepath = r"C:\\Users\danda_000\\Documents\\Estudos, Unifor\\Python\\workspace\\Arquitetura\\res\\file_sample.txt"
 
     def __init__(self, barramento):
+        super(Entrada, self).__init__()
         self.buffer = {}
         self.barramento = barramento
 
@@ -36,3 +41,7 @@ class Entrada:
     def importar_codigo(path=filepath):
         f = open(path, 'r')
         return f.read().splitlines()
+
+    def run(self):
+        while Comps.running:
+            time.sleep(Consts.sleep)

@@ -1,10 +1,14 @@
 from Computador import Componentes as Comps
 from EntradaSaida.Codigo import Codigo
 from Computador import Constantes as Consts
+from Computador import IComponent
+import time
+import threading
 
 
-class CPU:
+class CPU(threading.Thread, IComponent):
     def __init__(self, barramento):
+        super(CPU, self).__init__()
         self.registradores = {"A": 0, "B": 0, "C": 0, "D": 0, "CI": 0}
         self.running = True
         self.interface_selected = 0
@@ -91,3 +95,19 @@ class CPU:
             return self.registradores[chr(valor)]
 
         return self.barramento.receber_valor(valor)
+
+    def run(self):
+        while Comps.running:
+            self.enviar_sinal()
+            self.receber_endereco()
+            self.receber_dado()
+            time.sleep(Consts.sleep)
+
+    def enviar_sinal(self):
+        pass
+
+    def receber_endereco(self):
+        pass
+
+    def receber_dado(self):
+        pass

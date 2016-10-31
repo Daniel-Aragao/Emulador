@@ -30,3 +30,5 @@ LARGURA_BARRAMENTO = 8
 
 def largura_de_banda():
     return CLOCK * LARGURA_BARRAMENTO
+
+sleep = 1

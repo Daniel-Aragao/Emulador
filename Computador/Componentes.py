@@ -9,6 +9,7 @@ ENTRADA = 1
 Cpu = {}
 CPU = 2
 
+running = False
 """Componentes = {
     "Memoria": 0,
     "CPU": 2,
