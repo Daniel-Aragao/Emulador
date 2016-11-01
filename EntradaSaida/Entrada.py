@@ -1,13 +1,12 @@
+import threading
+import time
 from Regex import Regex
 from BufferReader import BufferReader
 from Computador import Componentes as Comps
-from Computador import IComponent
 from Computador import Constantes as Consts
-import threading
-import time
 
 
-class Entrada(threading.Thread, IComponent):
+class Entrada(threading.Thread):
     filepath = r"C:\\Users\danda_000\\Documents\\Estudos, Unifor\\Python\\workspace\\Arquitetura\\res\\file_sample.txt"
 
     def __init__(self, barramento):

@@ -1,17 +1,17 @@
+import threading
+import time
 from Computador import Componentes as Comps
 from Computador import Constantes as Const
 from Utils.ArrayTools import ArrayTools as at
-from Computador import IComponent
-import time
-import threading
 
 
-class Ram(IComponent, threading.Thread):
+class Ram(threading.Thread):
 
     def __init__(self, barramento):
         super(Ram, self).__init__()
-        self.dados = [0 for i in range(Const.MEMORIA_TAMANHO)]
         self.barramento = barramento
+        """
+        self.dados = [0 for i in range(Const.MEMORIA_TAMANHO)]
         self.pointer = 0
 
     def receber_dados(self, dado):
@@ -68,7 +68,7 @@ class Ram(IComponent, threading.Thread):
         string += str(at.sub_array(self.dados, start=p, size=Const.memoria_particao_codigo()))
 
         return string
-
+"""
     def run(self):
         while Comps.running:
             time.sleep(Const.sleep)

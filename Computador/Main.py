@@ -18,6 +18,7 @@ class Computador:
     #ram vai de 32 a 32*2^30, potencia de base 2
     #clock vai de 100hz a 1ghz, multiplo de 100
     #corrigir constantes que deveriam ser funcoes
+    # tamanho maximo da memoria fisica eh de 2**24
 
     def __init__(self):
         # interface
@@ -25,18 +26,32 @@ class Computador:
 
         # Instanciando componentes do computador
         self.criar_componentes()
-
+        """
         # interface
         self.criar_interface_principal()
 
         # Iniciando programa
         self.executar_assembly()
+        """
 
     @staticmethod
     def iniciar_interfaces_configuracao():
         BarramentoConfig()
         MemoriaConfig()
 
+    @staticmethod
+    def criar_componentes():
+        barramento = Barramento()
+
+        Comps.Ram = Ram(barramento)
+        Comps.Entrada = Entrada(barramento)
+        Comps.Cpu = CPU(barramento)
+
+        Comps.Componentes[Comps.RAM] = Comps.Ram
+        Comps.Componentes[Comps.ENTRADA] = Comps.Entrada
+        Comps.Componentes[Comps.CPU] = Comps.Cpu
+
+    """
     def executar_assembly(self):
         Comps.Entrada.preencher_memoria(Comps.Entrada.read_file())
         # famosa gambiarra
@@ -52,18 +67,6 @@ class Computador:
 
         interface.btnNext.configure(command=self.avancar_codigo)
         interface.btnFinish.configure(command=self.concluir_codigo)
-
-    @staticmethod
-    def criar_componentes():
-        barramento = Barramento()
-
-        Comps.Ram = Ram(barramento)
-        Comps.Entrada = Entrada(barramento)
-        Comps.Cpu = CPU(barramento)
-
-        Comps.Componentes[Comps.RAM] = Comps.Ram
-        Comps.Componentes[Comps.ENTRADA] = Comps.Entrada
-        Comps.Componentes[Comps.CPU] = Comps.Cpu
 
     def avancar_codigo(self):
         Comps.Cpu.executar_codigo()
@@ -97,7 +100,7 @@ class Computador:
             Comps.interface_listas[3].set("Executando")
         else:
             Comps.interface_listas[3].set("Finalizado")
-
+"""
 
 if __name__ == '__main__':
     Computador()

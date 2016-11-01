@@ -1,18 +1,19 @@
+import threading
+import time
 from Computador import Componentes as Comps
 from EntradaSaida.Codigo import Codigo
 from Computador import Constantes as Consts
-from Computador import IComponent
-import time
-import threading
 
 
-class CPU(threading.Thread, IComponent):
+class CPU(threading.Thread):
+
     def __init__(self, barramento):
         super(CPU, self).__init__()
         self.registradores = {"A": 0, "B": 0, "C": 0, "D": 0, "CI": 0}
+        self.barramento = barramento
+        """
         self.running = True
         self.interface_selected = 0
-        self.barramento = barramento
 
     def executar_codigo(self):
         regs = self.registradores
@@ -95,6 +96,7 @@ class CPU(threading.Thread, IComponent):
             return self.registradores[chr(valor)]
 
         return self.barramento.receber_valor(valor)
+        """
 
     def run(self):
         while Comps.running:

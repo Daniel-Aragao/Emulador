@@ -6,7 +6,7 @@ MENOR_REGISTRADOR = ord('A')
 # MEMORIA
 CODIGO_SIZE = 4
 MEMORIA_TAMANHO_MINIMO = 32
-MEMORIA_TAMANHO_MAXIMO = 32 * (2**30)
+MEMORIA_TAMANHO_MAXIMO = 2**24
 MEMORIA_TAMANHO = MEMORIA_TAMANHO_MINIMO
 
 
@@ -32,3 +32,10 @@ def largura_de_banda():
     return CLOCK * LARGURA_BARRAMENTO
 
 sleep = 1
+
+# Estrutura de tuplas do barramento
+# Geral
+# origem, destino, dados
+T_ORIGEM = 0
+T_DESTINO = 1
+T_DADOS = 2
