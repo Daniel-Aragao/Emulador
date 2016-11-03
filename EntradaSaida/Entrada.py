@@ -43,4 +43,9 @@ class Entrada(threading.Thread):
 
     def run(self):
         while Comps.running:
+            """
+            enviar sinal
+            receber endereco
+            enviar dado
+            """
             time.sleep(Consts.sleep)

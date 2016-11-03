@@ -71,4 +71,21 @@ class Ram(threading.Thread):
 """
     def run(self):
         while Comps.running:
+            self.receber_sinal()
             time.sleep(Const.sleep)
+
+    def receber_sinal(self):
+        if self.barramento.checar_sinal(Comps.RAM):
+            sinal = self.barramento.receber_sinal()
+            origem = sinal[Const.T_ORIGEM]
+
+            if origem == Comps.CPU:
+                self.tratar_sinal_cpu(sinal)
+            elif origem == Comps.ENTRADA:
+                self.tratar_sinal_entrada(sinal)
+
+    def tratar_sinal_cpu(self, sinal):
+        pass
+
+    def tratar_sinal_entrada(self, sinal):
+        pass
