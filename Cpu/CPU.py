@@ -11,6 +11,8 @@ class CPU(threading.Thread):
         super(CPU, self).__init__()
         self.registradores = {"A": 0, "B": 0, "C": 0, "D": 0, "CI": 0}
         self.barramento = barramento
+        self.esperando_dado = False
+        self.esperando_endereco = False
         """
         self.running = True
         self.interface_selected = 0
@@ -103,13 +105,40 @@ class CPU(threading.Thread):
             self.enviar_sinal()
             self.receber_endereco()
             self.receber_dado()
+
             time.sleep(Consts.sleep)
 
     def enviar_sinal(self):
-        pass
+        if (not self.esperando_dado) and (not self.esperando_endereco) and self.registradores["CI"] != -1:
+            sinal = [0 for i in Consts.T_LENGTH]
+            sinal[Consts.T_ORIGEM] = Comps.CPU
+            sinal[Consts.T_DESTINO] = Comps.RAM
+            sinal[Consts.T_DADOS] = self.registradores["CI"]
+            sinal[Consts.T_TIPO] = Consts.T_L_INSTRUCAO
+
+            self.barramento.enviar_sinal(sinal)
+
+            # self.esperando_dado = True
+            # self.esperando_endereco = True
 
     def receber_endereco(self):
-        pass
+        if (not self.esperando_dado) and self.barramento.checar_endereco(Comps.CPU):
+            endereco = self.barramento.receber_endereco()
+            # if endereco != -1:
+            self.registradores["CI"] = endereco
+
+            if not self.esperando_endereco:
+                self.esperando_dado = True
+
+            self.esperando_endereco = False
 
     def receber_dado(self):
-        pass
+        if (not self.esperando_endereco) and self.barramento.checar_dado(Comps.CPU):
+            dado = self.barramento.receber_dado()
+
+            # processar
+
+            if not self.esperando_dado:
+                self.esperando_endereco = True
+
+            self.esperando_dado = False

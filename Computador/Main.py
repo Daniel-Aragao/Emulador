@@ -47,6 +47,10 @@ class Computador:
         Comps.Entrada = Entrada(barramento)
         Comps.Cpu = CPU(barramento)
 
+        Comps.Ram.start()
+        Comps.Entrada.start()
+        Comps.Cpu.start()
+
         Comps.Componentes[Comps.RAM] = Comps.Ram
         Comps.Componentes[Comps.ENTRADA] = Comps.Entrada
         Comps.Componentes[Comps.CPU] = Comps.Cpu

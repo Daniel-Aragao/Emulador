@@ -33,9 +33,18 @@ def largura_de_banda():
 
 sleep = 1
 
-# Estrutura de tuplas do barramento
+# Estrutura do vetor de conexao com os componentes
+
 # Geral
+T_LENGTH = 4
 # origem, destino, dados
 T_ORIGEM = 0
 T_DESTINO = 1
 T_DADOS = 2
+T_TIPO = 3
+
+# Instrucoes de sinal
+T_L_INSTRUCAO = 0
+T_L_VALOR = 1
+T_E_INSTRUCAO = 2
+T_E_VALOR = 3
