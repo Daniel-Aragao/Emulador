@@ -44,8 +44,10 @@ class Entrada(threading.Thread):
     def run(self):
         while Comps.running:
             """
-            enviar sinal
-            receber endereco
-            enviar dado
+            se tiver dado no buffer
+                enviar sinal T_origem = ram, T_destino = entrada, T_dado = instrucao_index, T_tipo =  T_E_Instrucao
+                receber endereco
+                se o endereco for valido
+                    enviar dado
             """
             time.sleep(Consts.sleep)

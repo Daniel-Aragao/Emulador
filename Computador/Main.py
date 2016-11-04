@@ -42,6 +42,7 @@ class Computador:
     @staticmethod
     def criar_componentes():
         barramento = Barramento()
+        Comps.running = True
 
         Comps.Ram = Ram(barramento)
         Comps.Entrada = Entrada(barramento)
@@ -51,11 +52,11 @@ class Computador:
         Comps.Entrada.start()
         Comps.Cpu.start()
 
+    """
         Comps.Componentes[Comps.RAM] = Comps.Ram
         Comps.Componentes[Comps.ENTRADA] = Comps.Entrada
         Comps.Componentes[Comps.CPU] = Comps.Cpu
 
-    """
     def executar_assembly(self):
         Comps.Entrada.preencher_memoria(Comps.Entrada.read_file())
         # famosa gambiarra

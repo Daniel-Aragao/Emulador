@@ -4,19 +4,23 @@ from Computador import Constantes
 class Codigo:
     operacoes = {
         "inc": 1,
-        "add": 2,
-        "mov": 3,
-        "imul": 4
+        "dec": 2,
+        "label": 3,
+        "add": 4,
+        "mov": 5,
+        "imul": 6
     }
-
-    def __init__(self, args):
+refatorar
+    def __init__(self, args, i):
         self.parametros = args
-        self.byteArray = self.to_byte_array(self.parametros)
+        self.byteArray = self.to_byte_array(self.parametros, i)
 
-    def to_byte_array(self, parametros):
+    def to_byte_array(self, parametros, i):
         ops = self.__class__.operacoes
-
-        byte_array = [-1, -1, -1, -1]
+        if i < 0:
+            raise Exception("Indice do codigo invalido")
+        # instrucao, valor, valor, valor?, index da instrucao
+        byte_array = [-1, -1, -1, -1, i]
 
         # pegando qual operacao sera executada
         byte_array[0] = ops[parametros[0]]

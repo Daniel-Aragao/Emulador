@@ -4,7 +4,7 @@ MAIOR_REGISTRADOR = ord('D')
 MENOR_REGISTRADOR = ord('A')
 
 # MEMORIA
-CODIGO_SIZE = 4
+CODIGO_SIZE = 5
 MEMORIA_TAMANHO_MINIMO = 32
 MEMORIA_TAMANHO_MAXIMO = 2**24
 MEMORIA_TAMANHO = MEMORIA_TAMANHO_MINIMO
@@ -37,13 +37,13 @@ sleep = 1
 
 # Geral
 T_LENGTH = 4
-# origem, destino, dados
+# Origem, destino, dados
 T_ORIGEM = 0
 T_DESTINO = 1
 T_DADOS = 2
 T_TIPO = 3
 
-# Instrucoes de sinal
+# Tipos de sinal
 T_L_INSTRUCAO = 0
 T_L_VALOR = 1
 T_E_INSTRUCAO = 2

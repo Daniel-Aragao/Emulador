@@ -121,6 +121,9 @@ class CPU(threading.Thread):
             # self.esperando_dado = True
             # self.esperando_endereco = True
 
+            # problema: se eu mandar dois sinais(ci's) iguais o processador
+            # acabara por processar a mesma instrucao duas vezes
+
     def receber_endereco(self):
         if (not self.esperando_dado) and self.barramento.checar_endereco(Comps.CPU):
             endereco = self.barramento.receber_endereco()
